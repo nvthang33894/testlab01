@@ -1,0 +1,27 @@
+name: Deploy via API
+
+on:
+  push:
+    #branches: ["main"]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Call Deploy API
+        run: |
+          curl -X POST http://103.153.74.188:3000/deploy \
+            -H "Content-Type: application/json" \
+            -H "x-api-key: ${{ secrets.API_KEY }}" \
+            -d '{
+              "customer": "nvthang",             
+              "app": "testlab01",
+              "environment": "nothing",
+              "namespace": "default",
+              "image": "nvthang33894/testlab01",
+              "tag": "${{ github.sha }}",
+              "branch": "${{ github.ref_name }}",
+              "commit": "${{ github.sha }}",
+              "repo_url": "git@github.com:${{ github.repository }}.git"
+            }'
