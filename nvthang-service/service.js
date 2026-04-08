@@ -1,24 +1,12 @@
-const http = require('http');
+const express = require("express");
 
-const PORT = process.env.PORT || 3000;
+const app = express();
+const PORT = 3000;
 
-const server = http.createServer((req, res) => {
-  if (req.url === '/') {
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({
-      message: 'Hello from Node.js service 🚀',
-      hostname: require('os').hostname(),
-      time: new Date()
-    }));
-  } else if (req.url === '/health') {
-    res.writeHead(200);
-    res.end('OK');
-  } else {
-    res.writeHead(404);
-    res.end('Not Found');
-  }
+app.get("/", (req, res) => {
+  res.send("Hello World, fix lai format, Service A, service A update , fafupdate service A  ");
 });
 
-server.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`Server running on port ${PORT}`);
 });
